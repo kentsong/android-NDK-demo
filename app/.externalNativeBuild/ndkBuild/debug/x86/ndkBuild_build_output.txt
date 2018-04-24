@@ -1,0 +1,21 @@
+rm -f /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/lib/x86/*
+rm -f /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/lib/x86/gdbserver
+rm -f /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/lib/x86/gdb.setup
+mkdir -p /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/lib/x86
+echo [x86] "Gdbserver      ": "[i686-linux-android] /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/lib/x86/gdbserver"
+install -p /Users/Kent/Library/Android/sdk/ndk-bundle/prebuilt/android-x86/gdbserver/gdbserver /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/lib/x86/gdbserver
+echo [x86] "Gdbsetup       ": "/Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/lib/x86/gdb.setup"
+echo "set solib-search-path /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/obj/local/x86" > /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/lib/x86/gdb.setup
+echo "directory /Users/Kent/Library/Android/sdk/ndk-bundle/sysroot /Users/Kent/Library/Android/sdk/ndk-bundle/sources/cxx-stl/system/include /Users/Kent/NDK_Demo/app/src/main/jni" >> /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/lib/x86/gdb.setup
+mkdir -p /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/obj/local/x86/objs-debug/hello_jni
+echo [x86] "Compile++      ": "hello_jni <= test.cpp"
+/Users/Kent/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ -MMD -MP -MF /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/obj/local/x86/objs-debug/hello_jni/test.o.d -gcc-toolchain /Users/Kent/Library/Android/sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/darwin-x86_64 -target i686-none-linux-android -ffunction-sections -funwind-tables -fstack-protector-strong -fPIC -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -no-canonical-prefixes -g -fno-exceptions -fno-rtti -O0 -UNDEBUG -fno-limit-debug-info  -I/Users/Kent/Library/Android/sdk/ndk-bundle/sources/cxx-stl/system/include -I/Users/Kent/NDK_Demo/app/src/main/jni     -DANDROID  -D__ANDROID_API__=19 -Wa,--noexecstack -Wformat -Werror=format-security -mstackrealign   --sysroot /Users/Kent/Library/Android/sdk/ndk-bundle/sysroot -isystem /Users/Kent/Library/Android/sdk/ndk-bundle/sysroot/usr/include/i686-linux-android -c  /Users/Kent/NDK_Demo/app/src/main/jni/test.cpp -o /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/obj/local/x86/objs-debug/hello_jni/test.o
+mkdir -p /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/obj/local/x86
+echo [x86] "StaticLibrary  ": "libstdc++.a"
+rm -f /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/obj/local/x86/libstdc++.a
+/Users/Kent/Library/Android/sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/darwin-x86_64/bin/i686-linux-android-ar crsD  /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/obj/local/x86/libstdc++.a 
+echo [x86] "SharedLibrary  ": "libhello_jni.so"
+/Users/Kent/Library/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ -Wl,-soname,libhello_jni.so -shared --sysroot=/Users/Kent/Library/Android/sdk/ndk-bundle/platforms/android-19/arch-x86 /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/obj/local/x86/objs-debug/hello_jni/test.o /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/obj/local/x86/libstdc++.a -latomic -Wl,--exclude-libs,libatomic.a  -gcc-toolchain /Users/Kent/Library/Android/sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/darwin-x86_64 -target i686-none-linux-android -no-canonical-prefixes  -Wl,--build-id -Wl,--no-undefined -Wl,-z,noexecstack -Wl,-z,relro -Wl,-z,now -Wl,--warn-shared-textrel -Wl,--fatal-warnings  -L/Users/Kent/Library/Android/sdk/ndk-bundle/platforms/android-19/arch-x86/usr/lib -lstdc++ -lc -lm -o /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/obj/local/x86/libhello_jni.so
+echo [x86] "Install        ": "libhello_jni.so => /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/lib/x86/libhello_jni.so"
+install -p /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/obj/local/x86/libhello_jni.so /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/lib/x86/libhello_jni.so
+/Users/Kent/Library/Android/sdk/ndk-bundle/toolchains/x86-4.9/prebuilt/darwin-x86_64/bin/i686-linux-android-strip --strip-unneeded  /Users/Kent/NDK_Demo/app/build/intermediates/ndkBuild/debug/lib/x86/libhello_jni.so
